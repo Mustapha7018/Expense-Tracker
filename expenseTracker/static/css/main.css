@@ -1,0 +1,33 @@
+html {
+    scroll-behavior: smooth;
+}
+
+
+.hero__section {
+    height: 65vh;
+}
+
+.about__section {
+    margin-bottom: 3rem;
+}
+
+.testimonial__section {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
+
+.features__section {
+    padding-bottom: 2rem;
+}
+
+
+#sticky-banner {
+    display: none;
+  }
+  
+#sticky-banner.show {
+    display: flex;
+  }
+
+  
+  
