@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOGIN</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />    <link rel="stylesheet" href="login.css">
+
+</head>
+<body>
+    <a href="{% url 'signup.html' %}" class="signup-button">Sign up</a>
+    <div class="wrapper">
+        <div class="form-wrapper sign-in">
+            <form action="">
+                {% csrf_token %}
+                <img src="currency.png" alt="Logo" class="logo">
+                <h2>Login</h2>
+                <div class="input-group">
+                    <i class="fa-regular fa-user"></i>                    
+                    <input type="text" required>
+                    <label for="">Username:</label>
+                </div>
+
+                <div class="input-group">
+                    <i class="fa-solid fa-lock"></i>             
+                    <input type="password" required>
+                    <label for="">Password:</label>
+                </div>
+
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+<script src="login.js"></script>
+</body>
+</html>
