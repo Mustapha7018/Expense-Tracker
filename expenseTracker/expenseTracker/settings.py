@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'homePage',
-    'users',
+    'users.apps.UsersConfig',
     'income',
     'expenses',
     'wallet',

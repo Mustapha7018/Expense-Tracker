@@ -6,36 +6,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SIGN-UP</title>
     <link rel="stylesheet" href="{% static 'css/signup.css' %}">
-
 </head>
 <body>
 <section>
     <div class="logo">
-        <img src="currency.png" alt="">
+        <img src="{% static 'images/currency.png' %}" alt="">
         <p>Expense360</p>
     </div>
     <div class="wrapper">
         <div class="form-wrapper sign-in">
-            <form action="">
+            <form method="post" action="{% url 'register' %}">
                 {% csrf_token %}
                 <h2>Create an account</h2>
                 <p>Let's get started with you for free!</p>
+                <div class="error-messages" id="error_messages" style="display: none;">
+                    {% if messages %}
+                      {% for message in messages %}
+                        {% if message.tags == 'error' %}
+                          <div style="color:red;">{{ message }}</div>
+                        {% endif %}
+                        {% if message.tags == 'success' %}
+                          <div style="color:green;">{{ message }}</div>
+                        {% endif %}
+                      {% endfor %}
+                    {% endif %}
+                  </div>
                 <div class="input-group">
-                    <input type="text" required>
-                    <label for="">Name</label>
+                    <label for="full_name">Name</label>
+                    <input type="text" name="full_name" required>
                 </div>
-
                 <div class="input-group">
-                    <input type="email" required>
-                    <label for="">Email</label>
+                    <label for="email">Email</label>
+                    <input type="email" name="email" required>
                 </div>
                 <div class="input-group">
-                    <input type="password" required>
-                    <label for="">Password</label>
+                    <label for="password">Password</label>
+                    <input type="password" name="password" required>
                 </div>
                 <div class="input-group">
-                    <input type="password" required>
-                    <label for="">Confirm Password</label>
+                    <label for="Confirm Password">Confirm Password</label>
+                    <input type="password" name="confirm_password" required>
                 </div>
                 <button type="submit">Create an account</button>
                 <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
@@ -43,9 +53,9 @@
         </div>
     </div>
     <div class="image-box">
-        <img src="image-3.jpg" alt="">
+        <img src="{% static 'images/image-3.jpg' %}" alt="">
     </div>
 </section>
-<script src="signup.js"></script>
+<script src="{% static 'js/signup.js' %}"></script>
 </body>
 </html>

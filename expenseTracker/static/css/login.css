@@ -53,7 +53,7 @@ h2 {
 .input-group label {
     position: absolute;
     top: 50%;
-    left: 45px;
+    left: 15px;
     transform: translateY(-50%);
     font-size: 16px;
     color: #fff;
@@ -64,12 +64,13 @@ h2 {
 .input-group i {
     position: absolute;
     top: 50%;
-    left: 15px;
+    right: 15px;
     transform: translateY(-50%);
     color: #fff;
     font-size: 16px;
     transition: opacity 0.3s ease;
 }
+
 
 .input-group:focus-within i {
     opacity: 0; 
@@ -81,11 +82,14 @@ h2 {
     height: 45px;
     font-size: 16px;
     color: #fff;
-    padding: 0 5px;
+    padding: 0 15px;
     background: transparent;
     border: none;
     outline: none;
 }
+
+
+
 
 
 .input-group input:focus + label,

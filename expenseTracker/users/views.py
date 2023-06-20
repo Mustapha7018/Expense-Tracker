@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
-from . models import Profile
+#from . models import Profile
 from django.db.models import Q
 from .forms import CustomUserCreationForm
 
@@ -11,9 +12,9 @@ from .forms import CustomUserCreationForm
 
 # USER LOGIN
 def loginUser(request):
-    page = 'login'
-    if request.user.is_authenticated:
-        return redirect('dashboard')
+    #page = 'login'
+    #if request.user.is_authenticated:
+       # return redirect('dashboard')
 
     if request.method == 'POST':
         username = request.POST['username']
@@ -34,32 +35,35 @@ def loginUser(request):
         else:
             messages.error(request, 'Username or password is incorrect')
     
-    return render(request, 'dashboard/dashboard.html')
+    return render(request, 'login.html')
 
 
 # USER LOGOUT
-def logout(request):
+def logOut(request):
     logout(request)
     messages.info(request, 'User was logged out')
 
 
 # REGISTER USER
 def registerUser(request):
-    page = 'register'
-    form = CustomUserCreationForm()
     if request.method == 'POST':
-        form = CustomUserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.username = user.username.lower()
+        full_name = request.POST["full_name"]
+        email = request.POST["email"]
+        password = request.POST["password"]
+        Confirm_password = request.POST["confirm_password"]
+
+        if (password != Confirm_password):
+            messages.error(request, 'Password Mismatch!')
+            return redirect(request.META.get('HTTP_REFERER'))
+
+        try:
+            user = User.objects.create_user(username=email, first_name=full_name,password=password)
             user.save()
-            messages.success(request, 'User account was created successfully!')
+            request.session['success_message'] = 'User account was created successfully!'
+            return redirect('home')
+        except:
+            messages.error(request, 'An error occurred while creating the user account.')
+            return redirect(request.META.get('HTTP_REFERER'))
 
-            login(request, user)
-            return redirect('dashboard')
-
-        else:
-            messages.error(request, 'An error occurred during registration')
-            
-    context = {'page': page, 'form': form}
-    return render(request, 'users/signup.html', context)
+       
+    return render(request, 'signup.html')
