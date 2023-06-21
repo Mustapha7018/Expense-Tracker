@@ -59,7 +59,7 @@ def registerUser(request):
         try:
             user = User.objects.create_user(username=email, first_name=full_name,password=password)
             user.save()
-            request.session['success_message'] = 'User account was created successfully!'
+            messages.success(request, 'User account was created successfully!')
             return redirect('home')
         except:
             messages.error(request, 'An error occurred while creating the user account.')
