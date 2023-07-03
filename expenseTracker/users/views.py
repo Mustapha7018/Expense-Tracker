@@ -8,6 +8,9 @@ from django.contrib.auth.models import User
 from django.db.models import Q
 from .forms import CustomUserCreationForm
 
+from django.contrib.auth.decorators import user_passes_test
+
+
 # Create your views here.
 
 # USER LOGIN
@@ -38,9 +41,16 @@ def loginUser(request):
     return render(request, 'login.html')
 
 
+@login_required(login_url='login')
+def dashboard(request):
+    return render(request, 'dashboard.html')
+
+
 # USER LOGOUT
 def logOut(request):
     logout(request)
+    print("logout completed")
+    return redirect('login')
     messages.info(request, 'User was logged out')
 
 
@@ -60,7 +70,7 @@ def registerUser(request):
             user = User.objects.create_user(username=email, first_name=full_name,password=password)
             user.save()
             messages.success(request, 'User account was created successfully!')
-            return redirect('home')
+            return redirect('dashboard')
         except:
             messages.error(request, 'An error occurred while creating the user account.')
             return redirect(request.META.get('HTTP_REFERER'))

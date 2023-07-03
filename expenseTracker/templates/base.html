@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+    <div class="container">
+        <aside>
+            <div class="top">
+                <div class="logo">
+                    <img src="/assets/icons/currency.png" alt="">
+                    <h2>Expense360</h2>
+                </div>
+
+                <div class="close" id="close-btn">
+                    <span class="material-icons-sharp">close</span>
+                </div>
+            </div>
+
+            <div class="sidebar">
+                <a href="" class="active"><span class="material-icons-sharp">dashboard</span>
+                    <h3>Dashboard</h3>
+                </a>
+
+                <a href=""><span class="material-icons-sharp">group</span>
+                    <h3>Users</h3>
+                </a>
+
+                <a href=""><span class="material-icons-sharp">savings</span>
+                    <h3>Income</h3>
+                </a>
+
+                <a href=""><span class="material-icons-sharp">paid</span>
+                    <h3>Expenses</h3>
+                </a>
+
+                <a href=""><span class="material-icons-sharp">wallet</span>
+                    <h3>Wallet</h3>
+                </a>
+
+                <a href=""><span class="material-icons-sharp">settings</span>
+                    <h3>Settings</h3>
+                </a>
+
+                <a href=""><span class="material-icons-sharp">logout</span>
+                    <h3>Logout</h3>
+                </a>
+            </div>
+
+            <div class="beta">
+                <h5>Beta</h5>
+                <p>As part of our Beta program, some features of Expense360 may be experimental or not fully polished.</p>
+            </div>
+        </aside>
+
+
+        <!-- ===== MAIN TAG ===== -->
+    <main>
+        <div class="nav-wrapper">
+            <i class="fa-solid fa-bars" id="hamburger"></i>
+            <form action="">
+              <div class="search-container">
+                <i class="fa-sharp fa-solid fa-magnifying-glass"></i>
+                <input type="text">
+              </div>
+            </form>
+            <div class="profile-side">
+                <p>Employee101</p>
+              <img src="/assets/images/portrait.jpg" alt="">
+            </div>
+          </div>
+
+        <div class="insights">
+            <div class="card income">
+                <div class="number">
+                    <p>Income</p>
+                    <h4><span class="sign">$</span>53,000 <span class="percentage">+55%</span></h4>
+                </div>
+
+                <div class="insight-icon">
+                    <i class="fa-solid fa-money-bill-trend-up"></i>
+                </div>
+            </div>
+
+            <div class="card expenses">
+                <div class="number">
+                    <p>Expenses</p>
+                    <h4><span class="sign">$</span>11,432 <span class="percentage">+3%</span></h4>
+                </div>
+
+                <div class="insight-icon">
+                    <i class="fa-sharp fa-solid fa-credit-card"></i>
+                </div>
+            </div>
+
+            <div class="card wallet">
+                <div class="number">
+                    <p>Wallet</p>
+                    <h4><span class="sign">+</span>25,400 <span class="red"> -9%</span></h4>
+                </div>
+
+                <div class="insight-icon">
+                    <i class="fa-solid fa-wallet"></i>
+                </div>
+            </div>
+
+            <div class="card users">
+                <div class="number">
+                    <p>Users</p>
+                    <h4>250</h4>
+                </div>
+
+                <div class="insight-icon">
+                    <i class="fa-solid fa-users"></i>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="analytics">
+            <div class="doughnut-analytics">
+                <div class="income-analytics charts">
+                    <canvas class="chart1"></canvas>
+                    <h4>Income</h4>
+                </div>
+
+                <div class="expenses-analytics charts">
+                    <canvas class="chart2"></canvas>
+                    <h4>Expenses</h4>
+                </div>
+
+                <div class="wallet-anaytics charts">
+                    <canvas class="chart3"></canvas>
+                    <h4>Wallet</h4>
+                </div>   
+            </div>
+
+            <div class="linegraph-analytics">
+                <div class="line">
+                    <canvas class="line-chart"></canvas>
+                </div>
+
+                <div class="analytics-info">
+                    <div class="income-progress">
+                        <div class="income-wrapper">
+                            <i class="fa-solid fa-money-bill-trend-up"></i>
+                            <p>Income</p>
+                        </div>
+                        <p><strong>$53K</strong></p>
+                        <div class="progress">
+                            <div class="line-bar"></div>
+                        </div>
+                    </div>
+
+                    <div class="income-progress">
+                        <div class="income-wrapper">
+                            <i class="fa-sharp fa-solid fa-credit-card"></i>
+                            <p>Expenses</p>
+                        </div>
+                        <p><strong>$13K</strong></p>
+                        <div class="progress">
+                            <div class="line-bar"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bottom-container">
+            <div class="user-group">
+                <div class="user-header">
+                    <h6>User Groups</h6>
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>WALLET</th>
+                            <th>MEMBERS</th>
+                            <th>BUDGET</th>
+                            <th>TASK STATUS</th>
+                        </tr>
+                    </thead>
+    
+                    <tbody>
+                        <tr>
+                            <td>Tech Dept</td>
+                            <td>12</td>
+                            <td>3000</td>
+                            <td>Due</td>
+                        </tr>
+                        <tr>
+                            <td>Tech Dept</td>
+                            <td>12</td>
+                            <td>3000</td>
+                            <td>Due</td>
+                            
+                        </tr>
+                        <tr>
+                            <td>Tech Dept</td>
+                            <td>12</td>
+                            <td>3000</td>
+                            <td>Due</td>
+                            
+                        </tr>
+                        <tr>
+                            <td>Tech Dept</td>
+                            <td>12</td>
+                            <td>3000</td>
+                            <td>Due</td>
+                            
+                        </tr>
+                        <tr>
+                            <td>Tech Dept</td>
+                            <td>12</td>
+                            <td>3000</td>
+                            <td>Due</td>
+                           
+                        </tr>
+                        <tr>
+                            <td>Tech Dept</td>
+                            <td>12</td>
+                            <td>3000</td>
+                            <td>Due</td>
+                            
+                        </tr>
+                        <tr>
+                            <td>Tech Dept</td>
+                            <td>12</td>
+                            <td>3000</td>
+                            <td>Due</td>
+                            
+                        </tr>
+                        <tr>
+                            <td>Tech Dept</td>
+                            <td>12</td>
+                            <td>3000</td>
+                            <td>Due</td>
+                            
+                        </tr>
+                    </tbody>
+                </table>
+                <a href="#">Show all</a>
+                
+                
+            </div>
+
+            <div class="transaction-overview">
+                <div class="overview">
+                    <div class="overview-header">
+                        <div class="header-title">
+                            <h6>Recent Operations</h6>
+                        </div>
+                        <div class="filter-icon">
+                            <a href=""><i class="fa-sharp fa-solid fa-filter"></i></a>
+                        </div>
+                    </div>
+                    
+                    <div class="list-items">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>OPERATION</th>
+                                    <th>TYPE</th>
+                                    <th>VALUE</th>                                    
+                                </tr>
+                            </thead>
+            
+                            <tbody>
+                                <tr>
+                                    <td>Added Income</td>
+                                    <td>Salary</td>
+                                    <td><span><i class="fa-sharp fa-solid fa-plus"></i></span>300</td>                                    
+                                </tr>
+                                <tr>
+                                    <td>Added user</td>
+                                    <td>Staff</td>
+                                    <td><span><i class="fa-sharp fa-solid fa-plus"></i></span>1</td>                                    
+                                </tr>
+                                <tr>
+                                    <td>Created wallet</td>
+                                    <td>Finance Dept</td>
+                                    <td><span><i class="fa-sharp fa-solid fa-plus"></i></span>3000</td>                                    
+                                </tr>
+                                <tr>
+                                    <td>Deleted user</td>
+                                    <td>Admin</td>
+                                    <td><span><i class="fa-sharp fa-solid fa-minus"></i></span>1</td>                                    
+                                </tr>
+                                <tr>
+                                    <td>Added expense</td>
+                                    <td>Food & Drink</td>
+                                    <td><span><i class="fa-sharp fa-solid fa-minus"></i></span>250</td>                                    
+                                   
+                                </tr>
+                                <tr>
+                                    <td>Created user</td>
+                                    <td>Staff</td>
+                                    <td><span><i class="fa-sharp fa-solid fa-minus"></i></span>2</td>                                    
+                                </tr>
+                                <tr>
+                                    <td>Added income</td>
+                                    <td>Royalties</td>
+                                    <td><span><i class="fa-sharp fa-solid fa-plus"></i></span>4,500</td>                                    
+                                </tr>
+                                <tr>
+                                    <td>Deleted wallet</td>
+                                    <td>Tech Dept</td>
+                                    <td><span><i class="fa-sharp fa-solid fa-minus"></i></span>120</td>                                    
+                                </tr>
+                            </tbody>
+                        </table>
+                        <a href="#">Show all</a>
+                        
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+    </div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="dashboard.js"></script>
+</body>
+</html>
