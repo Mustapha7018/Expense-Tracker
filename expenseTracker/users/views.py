@@ -8,7 +8,6 @@ from django.contrib.auth.models import User
 from django.db.models import Q
 from .forms import CustomUserCreationForm
 
-from django.contrib.auth.decorators import user_passes_test
 
 
 # Create your views here.
@@ -43,13 +42,20 @@ def loginUser(request):
 
 @login_required(login_url='login')
 def dashboard(request):
-    return render(request, 'dashboard.html')
+    user = request.user
+    if user:
+        return render(request, 'dashboard.html')
+    else:
+        return redirect('login')
 
+
+@login_required(login_url='login')
+def usersGroup(request):
+    return render(request, 'usergroup.html')
 
 # USER LOGOUT
 def logOut(request):
     logout(request)
-    print("logout completed")
     return redirect('login')
     messages.info(request, 'User was logged out')
 

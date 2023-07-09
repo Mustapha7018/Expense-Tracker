@@ -27,12 +27,13 @@
             
             
             <div class="sidebar">
-                {% url 'dashboard' as dashboard %}
-                <a href="{{dashboard}}" class="{% if request.path == dashboard %} active {% endif %}"><span class="material-icons-sharp">dashboard</span>
+                {% url 'dashboard' as url %}
+                <a href="{{ url }}" class="{% if request.path == url %} active {% endif %}"><span class="material-icons-sharp">dashboard</span>
                     <h3>Dashboard</h3>
                 </a>
 
-                <a href=""><span class="material-icons-sharp">group</span>
+                {% url 'users' as url %}
+                <a href="{{ url }}" class="{% if request.path == url %} active {% endif %}"><span class="material-icons-sharp">group</span>
                     <h3>Users</h3>
                 </a>
 
@@ -108,7 +109,7 @@
             <div class="card wallet">
                 <div class="number">
                     <p>Wallet</p>
-                    <h4><span class="sign">+</span>25,400 <span class="red"> -9%</span></h4>
+                    <h4><span class="sign">$</span>25,400 <span class="red"> -9%</span></h4>
                 </div>
 
                 <div class="insight-icon">
@@ -199,32 +200,32 @@
                             <td>Tech Dept</td>
                             <td>12</td>
                             <td>3000</td>
-                            <td>Due</td>
+                            <td>Pending</td>
                         </tr>
                         <tr>
-                            <td>Tech Dept</td>
-                            <td>12</td>
-                            <td>3000</td>
-                            <td>Due</td>
-                            
-                        </tr>
-                        <tr>
-                            <td>Tech Dept</td>
-                            <td>12</td>
-                            <td>3000</td>
+                            <td>Research Dept</td>
+                            <td>10</td>
+                            <td>2500</td>
                             <td>Due</td>
                             
                         </tr>
                         <tr>
-                            <td>Tech Dept</td>
+                            <td>Finance Dept</td>
                             <td>12</td>
-                            <td>3000</td>
-                            <td>Due</td>
+                            <td>4000</td>
+                            <td>Done</td>
+                            
+                        </tr>
+                        <tr>
+                            <td>Managers</td>
+                            <td>03</td>
+                            <td>1250</td>
+                            <td>Pending</td>
                             
                         </tr>
                         <tr>
                             <td>Tech Dept</td>
-                            <td>12</td>
+                            <td>11</td>
                             <td>3000</td>
                             <td>Due</td>
                            
@@ -232,22 +233,22 @@
                         <tr>
                             <td>Tech Dept</td>
                             <td>12</td>
-                            <td>3000</td>
+                            <td>3300</td>
+                            <td>Pending</td>
+                            
+                        </tr>
+                        <tr>
+                            <td>Workers</td>
+                            <td>15</td>
+                            <td>9000</td>
                             <td>Due</td>
                             
                         </tr>
                         <tr>
-                            <td>Tech Dept</td>
-                            <td>12</td>
-                            <td>3000</td>
-                            <td>Due</td>
-                            
-                        </tr>
-                        <tr>
-                            <td>Tech Dept</td>
-                            <td>12</td>
-                            <td>3000</td>
-                            <td>Due</td>
+                            <td>Staff</td>
+                            <td>30</td>
+                            <td>5000</td>
+                            <td>Started</td>
                             
                         </tr>
                     </tbody>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users</title>
+    <link rel="stylesheet" href="{% static 'css/usergroup.css' %}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+    <div class="container">
+        <aside>
+            <div class="top">
+                <div class="logo">
+                    <img src="{% static 'images/currency.png' %}" alt="">
+                    <h2>Expense360</h2>
+                </div>
+
+                <div class="close" id="close-btn">
+                    <span class="material-icons-sharp">close</span>
+                </div>
+            </div>
+
+            <div class="sidebar">
+                {% url 'dashboard' as url %}
+                <a href="{{ url }}" class="{% if request.path == url %} active {% endif %}"><span class="material-icons-sharp">dashboard</span>
+                    <h3>Dashboard</h3>
+                </a>
+
+                {% url 'users' as url %}
+                <a href="{{ url }}" class="{% if request.path == url %} active {% endif %}"><span class="material-icons-sharp">group</span>
+                    <h3>Users</h3>
+                </a>
+
+                <a href=""><span class="material-icons-sharp">savings</span>
+                    <h3>Income</h3>
+                </a>
+
+                <a href=""><span class="material-icons-sharp">paid</span>
+                    <h3>Expenses</h3>
+                </a>
+
+                <a href=""><span class="material-icons-sharp">wallet</span>
+                    <h3>Wallet</h3>
+                </a>
+
+                <a href=""><span class="material-icons-sharp">settings</span>
+                    <h3>Settings</h3>
+                </a>
+
+                <a href=""><span class="material-icons-sharp">logout</span>
+                    <h3>Logout</h3>
+                </a>
+            </div>
+
+            <div class="beta">
+                <h5>Beta</h5>
+                <p>As part of our Beta program, some features of Expense360 may be experimental or not fully polished.</p>
+            </div>
+        </aside>
+
+
+        <!-- ===== MAIN TAG ===== -->
+    <main>
+        <div class="nav-wrapper">
+            <i class="fa-solid fa-bars" id="hamburger"></i>
+            <form action="">
+                {% csrf_token %}
+              <div class="search-container">
+                <i class="fa-sharp fa-solid fa-magnifying-glass"></i>
+                <input type="text">
+              </div>
+            </form>
+            <div class="profile-side">
+                <p>Employee101</p>
+              <img src="{% static 'images/default-user.png' %}" alt="">
+            </div>
+          </div>
+
+
+          <div class="long-bar">
+            <div class="left-side">
+                <i class="fa-solid fa-users"></i>
+                <p>Users</p>
+            </div>
+            <div class="right-side">
+                <p>Total: <span class="total-users">250</span></p>
+            </div>
+          </div>
+
+          <div class="user-container">
+            <div class="user-form-container">
+                <form action="">
+                    <h2>Add User</h2>
+                    <div class="input-field">
+                        <label for="username">Username:</label>
+                        <input id="username" type="text" required>
+                    </div>
+        
+                    <div class="input-field">
+                        <label for="email">Email:</label>
+                        <input id="email" type="email" required>
+                    </div>
+
+                    <div class="input-field">
+                        <label for="password">Password</label>
+                        <input id="password" type="password" required>
+                    </div>
+        
+                    <div class="input-field">
+                        <label for="user-type">User-Type</label>
+                        <select id="user-type">
+                            <option value="admin">Staff</option>
+                            <option value="editor">Admin</option>
+                            <option value="viewer">Editor</option>
+                        </select>
+                        <i class="fa-sharp fa-solid fa-chevron-down"></i>
+                    </div>
+        
+                    <div class="input-field">
+                        <label for="privileges">Privileges</label>
+                        <select id="privileges">
+                            <option value="all">All</option>
+                            <option value="partial">Partial</option>
+                        </select>
+                        <i class="fa-sharp fa-solid fa-chevron-down"></i>
+                    </div>
+        
+        
+                    <div class="input-field">
+                        <label for="wallet">Assign to wallet</label>
+                        <select id="wallet">
+                            <option value="wallet1">Wallet 1</option>
+                            <option value="wallet2">Wallet 2</option>
+                        </select>
+                        <i class="fa-sharp fa-solid fa-chevron-down"></i>
+                    </div>
+        
+                    <div class="button-grp">
+                        <button id="submit-btn" type="submit">Add User</button>
+                        <button id="reset-btn" type="reset">Reset</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="user-display-table">
+                <div class="user-header-display">
+                    <h2>Active Users</h2>
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>USERS </th>
+                            <th>TYPE</th>
+                        </tr>
+                    </thead>
+    
+                    <tbody>
+                        <tr>
+                            <td>Mustapha Adams</td>
+                            <td>Super-Admin</td>
+                        </tr>
+                        <tr>
+                            <td>Kassim Tawficl</td>
+                            <td>Admin</td>
+                            
+                        </tr>
+                        <tr>
+                            <td>Edwin Morgan</td>
+                            <td>Staff</td>
+                            
+                        </tr>
+                        <tr>
+                            <td>Wilfry Aikens</td>
+                            <td>Admin</td>
+                            
+                        </tr>
+                        <tr>
+                            <td>Sherry Nichol</td>
+                            <td>Staff</td>
+                        </tr>
+                        <tr>
+                            <td>Michael Oliver</td>
+                            <td>Staff</td>
+                            
+                        </tr>
+                        <tr>
+                            <td>Emy Julia</td>
+                            <td>Staff</td>
+                            
+                        </tr>
+                        <tr>
+                            <td>Paul Walker</td>
+                            <td>Staff</td>
+                            
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- <a href="#">Show all</a>       -->
+            </div>
+        </div>
+        </main>
+    </div>
+
+        
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{% static 'js/dashboard.js' %}"></script>
+</body>
+</html>
