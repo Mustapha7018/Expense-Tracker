@@ -53,6 +53,10 @@ def dashboard(request):
 def usersGroup(request):
     return render(request, 'usergroup.html')
 
+@login_required(login_url='login')
+def incomeView(request):
+    return render(request, 'incomepage.html')
+
 # USER LOGOUT
 def logOut(request):
     logout(request)

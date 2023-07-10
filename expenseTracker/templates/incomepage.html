@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
     {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard/Users</title>
-    <link rel="stylesheet" href="{% static 'css/usergroup.css' %}">
+    <title>Dashboard/Income</title>
+    <link rel="stylesheet" href="{% static 'css/incomepage.css' %}">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
@@ -86,11 +85,11 @@
 
           <div class="long-bar">
             <div class="left-side">
-                <i class="fa-solid fa-users"></i>
+                <i class="fa-solid fa-money-bill-trend-up"></i>
                 <p>Users</p>
             </div>
             <div class="right-side">
-                <p>Total: <span class="total-users">250</span></p>
+                <p>Total: $53,000<span class="total-percentage">+55%</span></p>
             </div>
           </div>
 
@@ -98,42 +97,37 @@
             <div class="user-form-container">
                 <form action="">
                     {% csrf_token %}
-                    <h2>Add User</h2>
+                    <h2>Add Income</h2>
                     <div class="input-field">
-                        <label for="username">Username:</label>
-                        <input id="username" type="text" required>
-                    </div>
-        
-                    <div class="input-field">
-                        <label for="email">Email:</label>
-                        <input id="email" type="email" required>
+                        <label for="privileges">Income source</label>
+                        <select id="privileges">
+                            <option value="all">Licensing & Royalties</option>
+                            <option value="partial">Insurance</option>
+                        </select>
+                        <i class="fa-sharp fa-solid fa-chevron-down"></i>
                     </div>
 
                     <div class="input-field">
-                        <label for="password">Password</label>
-                        <input id="password" type="password" required>
-                    </div>
-        
-                    <div class="input-field">
-                        <label for="user-type">User-Type</label>
-                        <select id="user-type">
-                            <option value="admin">Staff</option>
-                            <option value="editor">Admin</option>
-                            <option value="viewer">Editor</option>
-                        </select>
-                        <i class="fa-sharp fa-solid fa-chevron-down"></i>
-                    </div>
-        
-                    <div class="input-field">
-                        <label for="privileges">Privileges</label>
+                        <label for="privileges">Currency</label>
                         <select id="privileges">
-                            <option value="all">All</option>
-                            <option value="partial">Partial</option>
+                            <option value="all">GHC</option>
+                            <option value="partial">USD</option>
                         </select>
                         <i class="fa-sharp fa-solid fa-chevron-down"></i>
                     </div>
+
+                    <div class="input-field">
+                        <label for="amount">Amount</label>
+                        <input id="amount" type="number" required class="no-spinners">
+                    </div>
         
-        
+                    <div class="input-field">
+                        <label for="date">Date</label>
+                        <input id="date" type="date" required>
+                        <!-- <i class="fa-sharp fa-solid fa-calendar-days"></i> -->
+                    </div>
+
+                   
                     <div class="input-field">
                         <label for="wallet">Assign to wallet</label>
                         <select id="wallet">
@@ -142,9 +136,16 @@
                         </select>
                         <i class="fa-sharp fa-solid fa-chevron-down"></i>
                     </div>
+
+                    <div class="input-field">
+                        <label for="description" style="margin-bottom: 5px;">Description</label>
+                        <textarea id="description" style="vertical-align: top;" required></textarea>
+                    </div>                    
+        
+                   
         
                     <div class="button-grp">
-                        <button id="submit-btn" type="submit">Add User</button>
+                        <button id="submit-btn" type="submit">Add Income</button>
                         <button id="reset-btn" type="reset">Reset</button>
                     </div>
                 </form>
@@ -152,54 +153,54 @@
 
             <div class="user-display-table">
                 <div class="user-header-display">
-                    <h2>Active Users</h2>
+                    <h2>Income</h2>
                 </div>
 
                 <table>
                     <thead>
                         <tr>
-                            <th>USERS </th>
-                            <th>TYPE</th>
+                            <th>INCOME TYPE </th>
+                            <th>AMOUNT</th>
                         </tr>
                     </thead>
     
                     <tbody>
                         <tr>
-                            <td>Mustapha Adams</td>
-                            <td>Super-Admin</td>
+                            <td>Royalties</td>
+                            <td>$3,000</td>
                         </tr>
                         <tr>
-                            <td>Kassim Tawfick</td>
-                            <td>Admin</td>
+                            <td>Salary</td>
+                            <td>$15,000</td>
                             
                         </tr>
                         <tr>
-                            <td>Edwin Morgan</td>
-                            <td>Staff</td>
+                            <td>Rentals</td>
+                            <td>$33,000</td>
                             
                         </tr>
                         <tr>
-                            <td>Wilfry Aikens</td>
-                            <td>Admin</td>
+                            <td>Insurance</td>
+                            <td>$21,000</td>
                             
                         </tr>
                         <tr>
-                            <td>Sherry Nichol</td>
-                            <td>Staff</td>
+                            <td>Copywrites</td>
+                            <td>$4,500</td>
                         </tr>
                         <tr>
-                            <td>Michael Oliver</td>
-                            <td>Staff</td>
+                            <td>Sales</td>
+                            <td>$6,000</td>
                             
                         </tr>
                         <tr>
-                            <td>Emy Julia</td>
-                            <td>Staff</td>
+                            <td>Profits</td>
+                            <td>$5,000</td>
                             
                         </tr>
                         <tr>
-                            <td>Paul Walker</td>
-                            <td>Staff</td>
+                            <td>Other</td>
+                            <td>$1,000</td>
                             
                         </tr>
                     </tbody>

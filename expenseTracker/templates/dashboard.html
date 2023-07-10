@@ -37,7 +37,8 @@
                     <h3>Users</h3>
                 </a>
 
-                <a href=""><span class="material-icons-sharp">savings</span>
+                {% url 'income' as url %}
+                <a href="{{ url }}" class="{% if request.path == url %} active {% endif %}"><span class="material-icons-sharp">savings</span>
                     <h3>Income</h3>
                 </a>
 
@@ -52,8 +53,8 @@
                 <a href=""><span class="material-icons-sharp">settings</span>
                     <h3>Settings</h3>
                 </a>
-                {% url 'login' as login %}
-                <a href="{{login}}" class="{% if request.path == login %} active {% endif %}"><span class="material-icons-sharp">logout</span>
+                {% url 'login' as url %}
+                <a href="{{ url }}" class="{% if request.path == url %} active {% endif %}"><span class="material-icons-sharp">logout</span>
                     <h3>Logout</h3>
                 </a>
             </div>

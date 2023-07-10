@@ -4,6 +4,12 @@ from django.contrib.auth.decorators import login_required
 from .models import Income
 from .forms import IncomeForm
 
+
+
+# @login_required(login_url='login')
+# def incomeView(request):
+#     return render(request, 'incomepage.html')
+
 # CREATE
 @login_required
 def add_income(request):
