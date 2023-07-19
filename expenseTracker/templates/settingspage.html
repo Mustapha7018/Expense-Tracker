@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard/Settings</title>
+    <link rel="stylesheet" href="{% static 'css/settingspage.css' %}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+    <div class="container">
+        <aside>
+            <div class="top">
+                <div class="logo">
+                    <img src="{% static 'images/currency.png' %}" alt="">
+                    <h2>Expense360</h2>
+                </div>
+
+                <div class="close" id="close-btn">
+                    <span class="material-icons-sharp">close</span>
+                </div>
+            </div>
+
+            <div class="sidebar">
+                {% url 'dashboard' as url %}
+                <a href="{{ url }}" class="{% if request.path == url %} active {% endif %}"><span class="material-icons-sharp">dashboard</span>
+                    <h3>Dashboard</h3>
+                </a>
+
+                {% url 'users' as url %}
+                <a href="{{ url }}" class="{% if request.path == url %} active {% endif %}"><span class="material-icons-sharp">group</span>
+                    <h3>Users</h3>
+                </a>
+
+                {% url 'income' as url %}
+                <a href="{{ url }}" class="{% if request.path == url %} active {% endif %}"><span class="material-icons-sharp">savings</span>
+                    <h3>Income</h3>
+                </a>
+
+                {% url 'expenses' as url %}
+                <a href="{{ url }}" class="{% if request.path == url %} active {% endif %}"><span class="material-icons-sharp">paid</span>
+                    <h3>Expenses</h3>
+                </a>
+
+                {% url 'wallets' as url %}
+                <a href="{{ url }}" class="{% if request.path == url %} active {% endif %}"><span class="material-icons-sharp">wallet</span>
+                    <h3>Wallet</h3>
+                </a>
+
+                {% url 'settings' as url %}
+                <a href="{{ url }}" class="{% if request.path == url %} active {% endif %}"><span class="material-icons-sharp">settings</span>
+                    <h3>Settings</h3>
+                </a>
+                
+                {% url 'login' as url %}
+                <a href="{{ url }}" class="{% if request.path == url %} active {% endif %}"><span class="material-icons-sharp">logout</span>
+                    <h3>Logout</h3>
+                </a>
+            </div>
+
+            <div class="beta">
+                <h5>Beta</h5>
+                <p>As part of our Beta program, some features of Expense360 may be experimental or not fully polished.</p>
+            </div>
+        </aside>
+
+
+        <!-- ===== MAIN TAG ===== -->
+    <main>
+        <div class="nav-wrapper">
+            <i class="fa-solid fa-bars" id="hamburger"></i>
+            <form action="{% url 'settings' %}" method="post">
+                {% csrf_token %}
+              <div class="search-container">
+                <i class="fa-sharp fa-solid fa-magnifying-glass"></i>
+                <input type="text">
+              </div>
+            </form>
+            <div class="profile-side">
+                <p>{{ profile.full_name }}</p>
+                <img src="{% if profile.profile_image %}{{ profile.profile_image.url }}{% else %}{% static 'images/user-default.svg' %}{% endif %}" alt="">
+            </div>
+            
+          </div>
+
+
+          <div class="long-bar">
+            <div class="left-side">
+                <i class="fa-solid fa-gear"></i>
+                <p>Settings</p>
+            </div>
+            <div class="right-side">
+                <p>Status:<span class="user-status"> Availabe</span></p>
+            </div>
+          </div>
+
+          <div class="user-container">
+            <div class="user-edit-page">
+
+                <div class="profile-pic-container">
+                    <img id="profile-pic" src="{{ profile.profile_image.url }}" alt="">
+                    <div class="overlay" onclick="document.getElementById('imageUpload').click()">
+                        <i class="fa fa-camera"></i>
+                        <input type="file" id="imageUpload" name="profile_image" accept="image/*" style="display: none;">
+                    </div>
+                </div>  
+                 
+                
+                <div class="edit-info">
+                    <p>{{ profile.full_name }}</p>
+                    <p>{% if user.is_superuser %}Admin{% elif user.is_staff %}Staff{% else %}User{% endif %}</p>
+                    <p>{{ user.email }}</p>
+                    <p>Wallet assigned to: <span>Researchers</span></p>
+                </div>
+                       
+            </div>
+
+            <div class="user-form-container">
+                <form action="{% url 'edit-profile' %}" method="post" id="edit-profile-form" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <h2>Edit Profile</h2>
+                    <div class="input-field">
+                        <label for="full-name">Full Name</label>
+                        <input id="full-name" type="text" name="full_name" value="{{ profile.full_name }}">
+                    </div>
+            
+                    <div class="input-field">
+                        <label for="email">Email</label>
+                        <input id="email" type="email" name="email" value="{{ user.email }}">
+                    </div>
+            
+                    <div class="input-field">
+                        <label for="old-password">Old Password</label>
+                        <input id="old-password" type="password" name="old_password">
+                    </div>
+            
+                    <div class="input-field">
+                        <label for="new-password">New Password</label>
+                        <input id="new-password" type="password" name="new_password">
+                    </div>
+            
+                    <div class="input-field">
+                        <label for="user-type">User-Type</label>
+                        <input id="user-type" type="text" name="user_type" placeholder="{% if user.is_staff %}Admin{% elif user.is_superuser %}Superuser{% else %}User{% endif %}" {% if not user.is_staff %}disabled{% endif %}>
+                    </div>
+                    
+                    <div class="input-field">
+                        <label for="privileges">Privileges</label>
+                        <input id="privileges" type="text" name="privileges" placeholder="View dashboard only" {% if not user.is_staff %}disabled{% endif %}>
+                    </div>
+                    
+
+            
+                    <div class="button-grp">
+                        <button id="submit-btn" type="submit">Update User</button>
+                        <button id="cancel-btn" type="reset">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        </main>
+    </div>
+
+        
+
+<script src="{% static 'js/dashboard.js' %}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+    $('#edit-profile-form').on('submit', function(e) {
+        e.preventDefault();
+        var formData = new FormData(this);
+        formData.append('profile_image', $('input[type=file]')[0].files[0]); 
+        $.ajax({
+            url : $(this).attr('action') || window.location.pathname,
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                console.log("Profile updated successfully!");
+                window.location.href = "{% url 'dashboard' %}";
+            },
+            error: function (jXHR, textStatus, errorThrown) {
+                console.log(errorThrown);
+            }
+        });
+    });
+});
+
+    </script>
+</body>
+</html>

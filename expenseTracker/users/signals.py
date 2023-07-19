@@ -1,40 +1,37 @@
+from django.db import transaction
 from django.contrib.auth.models import User
-from .models import Profile
-from django.db.models.signals import post_save, post_delete
+from .models import Profile, UserActivity
+from django.db.models.signals import post_save, pre_delete
 from django.dispatch import receiver
-
+from datetime import datetime
 
 @receiver(post_save, sender=User)
-def create_profile(sender, instance, created, **kwargs):
+def create_or_update_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(
-            user=instance
-            # username=instance.username,
-            #email=instance.email,
-            #name=instance.get_full_name()
+            user=instance,
+            full_name=instance.get_full_name()
         )
-
-@receiver(post_save, sender=User)
-def save_profile(sender, instance, **kwargs):
-    instance.profile.save()
-
-"""@receiver(post_save, sender=Profile)
-def updateUser(sender, instance, created, **kwargs):
-    profile = instance
-    user = profile.user
-    if created == False:
-        user.first_name = profile.name,
-        user.username = profile.username,
-        user.email = profile.email,
-        user.save()
+    else:
+        profile, created = Profile.objects.get_or_create(user=instance)
+        if not created:
+            profile.full_name = instance.get_full_name()
+            profile.save()
+            
+    UserActivity.objects.create(
+        user=instance, 
+        operation_type='Add User' if created else 'Update User', 
+        entity_type='Admin' if instance.is_staff else 'User',
+        time=datetime.now()
+    )
 
 
-@receiver(post_delete, sender=Profile)
-def deleteUser(sender, instance, **kwargs):
-    profile = instance
-    user = profile.user
+@receiver(pre_delete, sender=User)
+def delete_profile(sender, instance, **kwargs):
+    UserActivity.objects.create(
+        user=instance,
+        operation_type='Delete User',
+        entity_type='Admin' if instance.is_staff else 'User',
+        time=datetime.now()
+    )
 
-    if user is not None:
-        user.delete()"""
-
-    

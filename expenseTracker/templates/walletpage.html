@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard/Wallet</title>
+    <link rel="stylesheet" href="{% static 'css/walletpage.css' %}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+    <div class="container">
+        <aside>
+            <div class="top">
+                <div class="logo">
+                    <img src="{% static 'images/currency.png' %}" alt="">
+                    <h2>Expense360</h2>
+                </div>
+
+                <div class="close" id="close-btn">
+                    <span class="material-icons-sharp">close</span>
+                </div>
+            </div>
+
+            <div class="sidebar">
+                {% url 'dashboard' as url %}
+                <a href="{{ url }}" class="{% if request.path == url %} active {% endif %}"><span class="material-icons-sharp">dashboard</span>
+                    <h3>Dashboard</h3>
+                </a>
+
+                {% url 'users' as url %}
+                <a href="{{ url }}" class="{% if request.path == url %} active {% endif %}"><span class="material-icons-sharp">group</span>
+                    <h3>Users</h3>
+                </a>
+
+                {% url 'income' as url %}
+                <a href="{{ url }}" class="{% if request.path == url %} active {% endif %}"><span class="material-icons-sharp">savings</span>
+                    <h3>Income</h3>
+                </a>
+
+                {% url 'expenses' as url %}
+                <a href="{{ url }}" class="{% if request.path == url %} active {% endif %}"><span class="material-icons-sharp">paid</span>
+                    <h3>Expenses</h3>
+                </a>
+
+                {% url 'wallets' as url %}
+                <a href="{{ url }}" class="{% if request.path == url %} active {% endif %}"><span class="material-icons-sharp">wallet</span>
+                    <h3>Wallet</h3>
+                </a>
+
+                {% url 'settings' as url %}
+                <a href="{{ url }}" class="{% if request.path == url %} active {% endif %}"><span class="material-icons-sharp">settings</span>
+                    <h3>Settings</h3>
+                </a>
+                
+                {% url 'login' as url %}
+                <a href="{{ url }}" class="{% if request.path == url %} active {% endif %}"><span class="material-icons-sharp">logout</span>
+                    <h3>Logout</h3>
+                </a>
+            </div>
+
+            <div class="beta">
+                <h5>Beta</h5>
+                <p>As part of our Beta program, some features of Expense360 may be experimental or not fully polished.</p>
+            </div>
+        </aside>
+
+
+        <!-- ===== MAIN TAG ===== -->
+    <main>
+        <div class="nav-wrapper">
+            <i class="fa-solid fa-bars" id="hamburger"></i>
+            <form action="">
+                {% csrf_token %}
+              <div class="search-container">
+                <i class="fa-sharp fa-solid fa-magnifying-glass"></i>
+                <input type="text">
+              </div>
+            </form>
+            <div class="profile-side">
+                <p>{{ profile.full_name }}</p>
+                <img src="{% if profile.profile_image %}{{ profile.profile_image.url }}{% else %}{% static 'images/user-default.svg' %}{% endif %}" alt="">
+            </div>            
+          </div>
+
+
+          <div class="long-bar">
+            <div class="left-side">
+                <i class="fa-solid fa-wallet"></i>
+                <p>Wallet</p>
+            </div>
+            <div class="right-side">
+                <p>Total: $25,400<span class="total-percentage"> -9%</span></p>
+            </div>
+          </div>
+
+          <div class="user-container">
+            <div class="user-form-container">
+                <form action="">
+                    {% csrf_token %}
+                    <h2>Add Wallet</h2>
+                    <div class="input-field">
+                        <label for="wallet">Wallet Name</label>
+                        <input id="wallet" type="text" required>
+                    </div>
+
+                    <div class="input-field">
+                        <label for="privileges">Currency</label>
+                        <select id="privileges">
+                            <option value="all">GHC</option>
+                            <option value="partial">USD</option>
+                        </select>
+                        <i class="fa-sharp fa-solid fa-chevron-down"></i>
+                    </div>
+
+                    <div class="input-field">
+                        <label for="amount">Initial Balance</label>
+                        <input id="amount" type="number" required class="no-spinners">
+                    </div>
+        
+                    <div class="input-field">
+                        <label for="date">Date</label>
+                        <input id="date" type="date" required>
+                    </div>
+                    
+
+                    <div class="input-field">
+                        <label for="description" style="margin-bottom: 5px;">Description</label>
+                        <textarea id="description" style="vertical-align: top;" required></textarea>
+                    </div>                    
+        
+                   
+        
+                    <div class="button-grp">
+                        <button id="submit-btn" type="submit">Add Wallet</button>
+                        <button id="reset-btn" type="reset">Reset</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="user-display-table">
+                <div class="user-header-display">
+                    <h2>Wallets</h2>
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>WALLET NAME </th>
+                            <th>AMOUNT</th>
+                        </tr>
+                    </thead>
+    
+                    <tbody>
+                        <tr>
+                            <td>Royalties</td>
+                            <td>$3,000</td>
+                        </tr>
+                        <tr>
+                            <td>Salary</td>
+                            <td>$15,000</td>
+                            
+                        </tr>
+                        <tr>
+                            <td>Rentals</td>
+                            <td>$33,000</td>
+                            
+                        </tr>
+                        <tr>
+                            <td>Insurance</td>
+                            <td>$21,000</td>
+                            
+                        </tr>
+                        <tr>
+                            <td>Copywrites</td>
+                            <td>$4,500</td>
+                        </tr>
+                        <tr>
+                            <td>Sales</td>
+                            <td>$6,000</td>
+                            
+                        </tr>
+                        <tr>
+                            <td>Profits</td>
+                            <td>$5,000</td>
+                            
+                        </tr>
+                        <tr>
+                            <td>Other</td>
+                            <td>$1,000</td>
+                            
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- <a href="#">Show all</a>       -->
+            </div>
+        </div>
+        </main>
+    </div>
+
+        
+
+<script src="{% static 'js/dashboard.js' %}"></script>
+</body>
+</html>

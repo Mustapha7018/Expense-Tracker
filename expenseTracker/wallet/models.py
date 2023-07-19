@@ -16,6 +16,7 @@ class Wallet(models.Model):
     wallet_name = models.CharField(max_length=100)
     currency = models.CharField(max_length=20, choices=CURRENCIES)
     initial_balance = models.DecimalField(max_digits=10, decimal_places=2)
+    current_balance = models.DecimalField(max_digits=10, decimal_places=2)
     date = models.DateField()
     description = models.TextField(max_length=400)
     

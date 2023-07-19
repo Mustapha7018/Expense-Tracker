@@ -15,9 +15,23 @@
         <div class="form-wrapper sign-in">
             <form action="{% url 'login' %}" method="post">
                 {% csrf_token %}
+                <div class="error-messages error-message" id="error_messages">
+                    {% if messages %}
+                      {% for message in messages %}
+                        {% if message.tags == 'error' %}
+                          <div style="color: #9b2d2d; position: absolute;
+                          left: 30%;
+                          bottom: 4%;">{{ message }}</div>
+                        {% endif %}
+                        {% if message.tags == 'success' %}
+                          <div style="color:green;">{{ message }}</div>
+                        {% endif %}
+                      {% endfor %}
+                    {% endif %}
+                </div>                
                 <img src="{% static 'images/currency-white.png' %}" alt="Logo" class="logo">
                 <h2>Login</h2>
-                <div class="input-group">
+                <div class="input-group" id="inputField">
                     <!-- <i class="fa-regular fa-user"></i>                     -->
                     <input type="text" name="username" required>
                     <label for="">Email:</label>
@@ -33,6 +47,15 @@
             </form>
         </div>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="{% static 'js/login.js' %}"></script>
+    <script type="text/javascript">
+        
+        $(document).ready(function() {
+            setTimeout(function() {
+                $(".error-message").fadeOut("slow");
+            }, 3000);
+        });
+    </script>
 </body>
 </html>

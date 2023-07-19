@@ -551,6 +551,10 @@ main .user-container .user-display-table table tbody tr:last-child td {
         gap: 290px;
     }
 
+    main .nav-wrapper .profile-side p {
+        font-size: .7rem;
+    }
+
     main .nav-wrapper .fa-bars {
         display: inline-block;
     }

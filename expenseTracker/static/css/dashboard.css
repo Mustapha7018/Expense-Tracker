@@ -55,6 +55,29 @@ body {
 }
 
 
+.container .messages {
+    position: fixed;
+    top: 15px;
+    left: 60%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 600px;
+    z-index: 9999;
+}
+
+.messages > div {
+    text-align: center;
+    padding: 10px;
+    margin: 10px auto;
+    color: var(--primary-color);
+    background-color: #cdfff5;
+    border-radius: 5px;
+}
+
+
+
+
+
 a {
     color: var(--primary-color);
 }

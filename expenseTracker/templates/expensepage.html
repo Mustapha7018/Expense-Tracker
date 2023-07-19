@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard/Expenses</title>
+    <link rel="stylesheet" href="{% static 'css/expensepage.css' %}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+    <div class="container">
+        <aside>
+            <div class="top">
+                <div class="logo">
+                    <img src="{% static 'images/currency.png' %}" alt="">
+                    <h2>Expense360</h2>
+                </div>
+
+                <div class="close" id="close-btn">
+                    <span class="material-icons-sharp">close</span>
+                </div>
+            </div>
+
+            <div class="sidebar">
+                {% url 'dashboard' as url %}
+                <a href="{{ url }}" class="{% if request.path == url %} active {% endif %}"><span class="material-icons-sharp">dashboard</span>
+                    <h3>Dashboard</h3>
+                </a>
+
+                {% url 'users' as url %}
+                <a href="{{ url }}" class="{% if request.path == url %} active {% endif %}"><span class="material-icons-sharp">group</span>
+                    <h3>Users</h3>
+                </a>
+
+                {% url 'income' as url %}
+                <a href="{{ url }}" class="{% if request.path == url %} active {% endif %}"><span class="material-icons-sharp">savings</span>
+                    <h3>Income</h3>
+                </a>
+
+                {% url 'expenses' as url %}
+                <a href="{{ url }}" class="{% if request.path == url %} active {% endif %}"><span class="material-icons-sharp">paid</span>
+                    <h3>Expenses</h3>
+                </a>
+
+                {% url 'wallets' as url %}
+                <a href="{{ url }}" class="{% if request.path == url %} active {% endif %}"><span class="material-icons-sharp">wallet</span>
+                    <h3>Wallet</h3>
+                </a>
+
+                {% url 'settings' as url %}
+                <a href="{{ url }}" class="{% if request.path == url %} active {% endif %}"><span class="material-icons-sharp">settings</span>
+                    <h3>Settings</h3>
+                </a>
+                
+                {% url 'login' as url %}
+                <a href="{{ url }}" class="{% if request.path == url %} active {% endif %}"><span class="material-icons-sharp">logout</span>
+                    <h3>Logout</h3>
+                </a>
+            </div>
+            
+            <div class="beta">
+                <h5>Beta</h5>
+                <p>As part of our Beta program, some features of Expense360 may be experimental or not fully polished.</p>
+            </div>
+        </aside>
+
+
+        <!-- ===== MAIN TAG ===== -->
+    <main>
+        <div class="nav-wrapper">
+            <i class="fa-solid fa-bars" id="hamburger"></i>
+            <form action="">
+                {% csrf_token %}
+              <div class="search-container">
+                <i class="fa-sharp fa-solid fa-magnifying-glass"></i>
+                <input type="text">
+              </div>
+            </form>
+            <div class="profile-side">
+                <p>{{ profile.full_name }}</p>
+                <img src="{% if profile.profile_image %}{{ profile.profile_image.url }}{% else %}{% static 'images/user-default.svg' %}{% endif %}" alt="">
+            </div>
+            
+          </div>
+
+
+          <div class="long-bar">
+            <div class="left-side">
+                <i class="fa-sharp fa-solid fa-credit-card"></i>
+                <p>Expenses</p>
+            </div>
+            <div class="right-side">
+                <p>Total: $11,250<span class="total-percentage">+3%</span></p>
+            </div>
+          </div>
+
+          <div class="user-container">
+            <div class="user-form-container">
+                <form action="">
+                    {% csrf_token %}
+                    <h2>Add Expense</h2>
+                    <div class="input-field">
+                        <label for="privileges">Expense source</label>
+                        <select id="privileges">
+                            <option value="all">Licensing & Royalties</option>
+                            <option value="partial">Insurance</option>
+                        </select>
+                        <i class="fa-sharp fa-solid fa-chevron-down"></i>
+                    </div>
+
+                    <div class="input-field">
+                        <label for="privileges">Currency</label>
+                        <select id="privileges">
+                            <option value="all">GHC</option>
+                            <option value="partial">USD</option>
+                        </select>
+                        <i class="fa-sharp fa-solid fa-chevron-down"></i>
+                    </div>
+
+                    <div class="input-field">
+                        <label for="amount">Amount</label>
+                        <input id="amount" type="number" required class="no-spinners">
+                    </div>
+        
+                    <div class="input-field">
+                        <label for="date">Date</label>
+                        <input id="date" type="date" required>
+                        <!-- <i class="fa-sharp fa-solid fa-calendar-days"></i> -->
+                    </div>
+
+                   
+                    <div class="input-field">
+                        <label for="receipt">Receipt</label>
+                        <div class="custom-file-upload">
+                            <input id="receipt" type="file" accept="image/*" required class="no-spinners">
+                        </div>
+                    </div>
+                    
+
+                    <div class="input-field">
+                        <label for="description" style="margin-bottom: 5px;">Note</label>
+                        <textarea id="description" style="vertical-align: top;" required></textarea>
+                    </div>                    
+        
+                   
+        
+                    <div class="button-grp">
+                        <button id="submit-btn" type="submit">Add Expense</button>
+                        <button id="reset-btn" type="reset">Reset</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="user-display-table">
+                <div class="user-header-display">
+                    <h2>Expenses</h2>
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>EXPENSE TYPE </th>
+                            <th>AMOUNT</th>
+                        </tr>
+                    </thead>
+    
+                    <tbody>
+                        <tr>
+                            <td>Office Rent</td>
+                            <td>$8,000</td>
+                        </tr>
+                        <tr>
+                            <td>Insurance</td>
+                            <td>$15,000</td>
+                            
+                        </tr>
+                        <tr>
+                            <td>Subscriptions</td>
+                            <td>$2,000</td>
+                            
+                        </tr>
+                        <tr>
+                            <td>Maintenance</td>
+                            <td>$4,000</td>
+                            
+                        </tr>
+                        <tr>
+                            <td>Research</td>
+                            <td>$4,500</td>
+                        </tr>
+                        <tr>
+                            <td>Food & Drink</td>
+                            <td>$10,000</td>
+                            
+                        </tr>
+                        <tr>
+                            <td>Entertainment</td>
+                            <td>$1,000</td>
+                            
+                        </tr>
+                        <tr>
+                            <td>Other</td>
+                            <td>$1,000</td>
+                            
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        </main>
+    </div>
+
+        
+
+<script src="{% static 'js/dashboard.js' %}"></script>
+</body>
+</html>

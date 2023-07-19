@@ -12,6 +12,11 @@ closeBtn.addEventListener("click", () => {
 });
 
 
+
+
+
+
+
 // SIDEBAR NAVLINKS ACTIVE IMPLEMENTATION
 // var sidebarLinks = document.querySelectorAll('.sidebar a');
 
@@ -234,3 +239,15 @@ gradientStroke2.addColorStop(0, 'rgba(20,23,39,0)');
         },
       },
     });
+
+
+
+// UPDATE PROFILE IMAGE
+document.getElementById('imageUpload').addEventListener('change', function(event) {
+  const reader = new FileReader();
+  reader.onload = function() {
+      const output = document.getElementById('profile-pic');
+      output.src = reader.result;
+  };
+  reader.readAsDataURL(event.target.files[0]);
+});

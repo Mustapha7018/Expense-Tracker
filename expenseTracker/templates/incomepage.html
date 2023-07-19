@@ -40,18 +40,21 @@
                     <h3>Income</h3>
                 </a>
 
-                <a href=""><span class="material-icons-sharp">paid</span>
+                {% url 'expenses' as url %}
+                <a href="{{ url }}" class="{% if request.path == url %} active {% endif %}"><span class="material-icons-sharp">paid</span>
                     <h3>Expenses</h3>
                 </a>
 
-                <a href=""><span class="material-icons-sharp">wallet</span>
+                {% url 'wallets' as url %}
+                <a href="{{ url }}" class="{% if request.path == url %} active {% endif %}"><span class="material-icons-sharp">wallet</span>
                     <h3>Wallet</h3>
                 </a>
 
-                <a href=""><span class="material-icons-sharp">settings</span>
+                {% url 'settings' as url %}
+                <a href="{{ url }}" class="{% if request.path == url %} active {% endif %}"><span class="material-icons-sharp">settings</span>
                     <h3>Settings</h3>
                 </a>
-
+                
                 {% url 'login' as url %}
                 <a href="{{ url }}" class="{% if request.path == url %} active {% endif %}"><span class="material-icons-sharp">logout</span>
                     <h3>Logout</h3>
@@ -77,16 +80,16 @@
               </div>
             </form>
             <div class="profile-side">
-                <p>Employee101</p>
-              <img src="{% static 'images/default-user.png' %}" alt="">
-            </div>
+                <p>{{ profile.full_name }}</p>
+                <img src="{% if profile.profile_image %}{{ profile.profile_image.url }}{% else %}{% static 'images/user-default.svg' %}{% endif %}" alt="">
+            </div>            
           </div>
 
 
           <div class="long-bar">
             <div class="left-side">
                 <i class="fa-solid fa-money-bill-trend-up"></i>
-                <p>Users</p>
+                <p>Income</p>
             </div>
             <div class="right-side">
                 <p>Total: $53,000<span class="total-percentage">+55%</span></p>

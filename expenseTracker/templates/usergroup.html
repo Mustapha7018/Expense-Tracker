@@ -41,18 +41,21 @@
                     <h3>Income</h3>
                 </a>
 
-                <a href=""><span class="material-icons-sharp">paid</span>
+                {% url 'expenses' as url %}
+                <a href="{{ url }}" class="{% if request.path == url %} active {% endif %}"><span class="material-icons-sharp">paid</span>
                     <h3>Expenses</h3>
                 </a>
 
-                <a href=""><span class="material-icons-sharp">wallet</span>
+                {% url 'wallets' as url %}
+                <a href="{{ url }}" class="{% if request.path == url %} active {% endif %}"><span class="material-icons-sharp">wallet</span>
                     <h3>Wallet</h3>
                 </a>
 
-                <a href=""><span class="material-icons-sharp">settings</span>
+                {% url 'settings' as url %}
+                <a href="{{ url }}" class="{% if request.path == url %} active {% endif %}"><span class="material-icons-sharp">settings</span>
                     <h3>Settings</h3>
                 </a>
-
+                
                 {% url 'login' as url %}
                 <a href="{{ url }}" class="{% if request.path == url %} active {% endif %}"><span class="material-icons-sharp">logout</span>
                     <h3>Logout</h3>
@@ -78,9 +81,9 @@
               </div>
             </form>
             <div class="profile-side">
-                <p>Employee101</p>
-              <img src="{% static 'images/default-user.png' %}" alt="">
-            </div>
+                <p>{{ profile.full_name }}</p>
+                <img src="{% if profile.profile_image %}{{ profile.profile_image.url }}{% else %}{% static 'images/user-default.svg' %}{% endif %}" alt="">
+            </div>            
           </div>
 
 
@@ -90,58 +93,60 @@
                 <p>Users</p>
             </div>
             <div class="right-side">
-                <p>Total: <span class="total-users">250</span></p>
+                <p>Total: <span class="total-users">{{ total_users }}</span></p>
             </div>
           </div>
 
           <div class="user-container">
             <div class="user-form-container">
-                <form action="">
+                <form action="" method="post">
                     {% csrf_token %}
                     <h2>Add User</h2>
                     <div class="input-field">
-                        <label for="username">Username:</label>
-                        <input id="username" type="text" required>
-                    </div>
-        
-                    <div class="input-field">
-                        <label for="email">Email:</label>
-                        <input id="email" type="email" required>
+                        <label for="username">Username</label>
+                        <input id="username" type="text" name="username" required>
                     </div>
 
                     <div class="input-field">
-                        <label for="password">Password</label>
-                        <input id="password" type="password" required>
+                        <label for="full-name">Full Name</label>
+                        <input id="full-name" name="full-name" type="text" required>
+                    </div>                    
+        
+                    <div class="input-field">
+                        <label for="email">Email</label>
+                        <input id="email" type="email" name="email" required>
                     </div>
         
                     <div class="input-field">
+                        <label for="password">Password</label>
+                        <input id="password" type="password" name="password" required>
+                    </div>
+        
+                    {% if user.is_staff %}
+                    <div class="input-field">
                         <label for="user-type">User-Type</label>
-                        <select id="user-type">
-                            <option value="admin">Staff</option>
-                            <option value="editor">Admin</option>
-                            <option value="viewer">Editor</option>
+                        <select id="user-type" name="user-type">
+                            <option value="staff">Staff</option>
+                            <option value="admin">Admin</option>
                         </select>
-                        <i class="fa-sharp fa-solid fa-chevron-down"></i>
                     </div>
         
                     <div class="input-field">
                         <label for="privileges">Privileges</label>
-                        <select id="privileges">
+                        <select id="privileges" name="privileges">
                             <option value="all">All</option>
                             <option value="partial">Partial</option>
                         </select>
-                        <i class="fa-sharp fa-solid fa-chevron-down"></i>
                     </div>
-        
         
                     <div class="input-field">
                         <label for="wallet">Assign to wallet</label>
-                        <select id="wallet">
+                        <select id="wallet" name="wallet">
                             <option value="wallet1">Wallet 1</option>
                             <option value="wallet2">Wallet 2</option>
                         </select>
-                        <i class="fa-sharp fa-solid fa-chevron-down"></i>
                     </div>
+                    {% endif %}
         
                     <div class="button-grp">
                         <button id="submit-btn" type="submit">Add User</button>
@@ -149,70 +154,38 @@
                     </div>
                 </form>
             </div>
-
+        
             <div class="user-display-table">
                 <div class="user-header-display">
                     <h2>Active Users</h2>
                 </div>
-
+        
                 <table>
                     <thead>
                         <tr>
-                            <th>USERS </th>
-                            <th>TYPE</th>
+                            <th>Full Name</th>
+                            <th>Type</th>
                         </tr>
                     </thead>
-    
                     <tbody>
+                        {% for user in users %}
                         <tr>
-                            <td>Mustapha Adams</td>
-                            <td>Super-Admin</td>
+                            <td>{{ user.profile.full_name }}</td>
+                            <td>{% if user.profile.user_type == 'staff' %}Staff{% elif user.profile.user_type == 'admin' %}Admin{% endif %}</td>
                         </tr>
-                        <tr>
-                            <td>Kassim Tawfick</td>
-                            <td>Admin</td>
-                            
-                        </tr>
-                        <tr>
-                            <td>Edwin Morgan</td>
-                            <td>Staff</td>
-                            
-                        </tr>
-                        <tr>
-                            <td>Wilfry Aikens</td>
-                            <td>Admin</td>
-                            
-                        </tr>
-                        <tr>
-                            <td>Sherry Nichol</td>
-                            <td>Staff</td>
-                        </tr>
-                        <tr>
-                            <td>Michael Oliver</td>
-                            <td>Staff</td>
-                            
-                        </tr>
-                        <tr>
-                            <td>Emy Julia</td>
-                            <td>Staff</td>
-                            
-                        </tr>
-                        <tr>
-                            <td>Paul Walker</td>
-                            <td>Staff</td>
-                            
-                        </tr>
+                        {% endfor %}
                     </tbody>
-                </table>
-                <!-- <a href="#">Show all</a>       -->
+                </table>                
+                               
+                
             </div>
         </div>
+        
         </main>
     </div>
 
         
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="{% static 'js/dashboard.js' %}"></script>
 </body>
 </html>

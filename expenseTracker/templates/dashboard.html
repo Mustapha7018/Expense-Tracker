@@ -13,6 +13,16 @@
 <body>
 
     <div class="container">
+        {% if messages %}
+        <div class="messages" id="message">
+            {% for message in messages %}
+                <div{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
         <aside>
             <div class="top">
                 <div class="logo">
@@ -42,17 +52,21 @@
                     <h3>Income</h3>
                 </a>
 
-                <a href=""><span class="material-icons-sharp">paid</span>
+                {% url 'expenses' as url %}
+                <a href="{{ url }}" class="{% if request.path == url %} active {% endif %}"><span class="material-icons-sharp">paid</span>
                     <h3>Expenses</h3>
                 </a>
 
-                <a href=""><span class="material-icons-sharp">wallet</span>
+                {% url 'wallets' as url %}
+                <a href="{{ url }}" class="{% if request.path == url %} active {% endif %}"><span class="material-icons-sharp">wallet</span>
                     <h3>Wallet</h3>
                 </a>
 
-                <a href=""><span class="material-icons-sharp">settings</span>
+                {% url 'settings' as url %}
+                <a href="{{ url }}" class="{% if request.path == url %} active {% endif %}"><span class="material-icons-sharp">settings</span>
                     <h3>Settings</h3>
                 </a>
+                
                 {% url 'login' as url %}
                 <a href="{{ url }}" class="{% if request.path == url %} active {% endif %}"><span class="material-icons-sharp">logout</span>
                     <h3>Logout</h3>
@@ -79,9 +93,10 @@
               </div>
             </form>
             <div class="profile-side">
-                <p>Employee101</p>
-              <img src="{% static 'images/portrait.jpg' %}" alt="">
+                <p>{{ profile.full_name }}</p>
+                <img src="{% if profile.profile_image %}{{ profile.profile_image.url }}{% else %}{% static 'images/user-default.svg' %}{% endif %}" alt="">
             </div>
+            
           </div>
 
         <div class="insights">
@@ -121,7 +136,7 @@
             <div class="card users">
                 <div class="number">
                     <p>Users</p>
-                    <h4>250</h4>
+                    <h4>{{ total_users }}</h4>
                 </div>
 
                 <div class="insight-icon">
@@ -254,7 +269,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <a href="#">Show all</a>
+                <!-- <a href="#">Show all</a> -->
                 
                 
             </div>
@@ -275,56 +290,22 @@
                             <thead>
                                 <tr>
                                     <th>OPERATION</th>
-                                    <th>TYPE</th>
-                                    <th>VALUE</th>                                    
+                                    <th>NAME</th>
+                                    <th>DATE</th>                                    
                                 </tr>
                             </thead>
             
                             <tbody>
+                                {% for operation in recent_operations %}
                                 <tr>
-                                    <td>Added Income</td>
-                                    <td>Salary</td>
-                                    <td><span><i class="fa-sharp fa-solid fa-plus"></i></span>300</td>                                    
+                                    <td>{{ operation.get_operation_type_display }}</td>
+                                    <td>{{ operation.user.get_full_name }}</td>
+                                    <td><span><i class="fa-sharp fa-solid fa-{{ operation.get_operation_type_display|lower }}"></i></span>{{ date_stamp|date:"F j, Y" }}</td>
                                 </tr>
-                                <tr>
-                                    <td>Added user</td>
-                                    <td>Staff</td>
-                                    <td><span><i class="fa-sharp fa-solid fa-plus"></i></span>1</td>                                    
-                                </tr>
-                                <tr>
-                                    <td>Created wallet</td>
-                                    <td>Finance Dept</td>
-                                    <td><span><i class="fa-sharp fa-solid fa-plus"></i></span>3000</td>                                    
-                                </tr>
-                                <tr>
-                                    <td>Deleted user</td>
-                                    <td>Admin</td>
-                                    <td><span><i class="fa-sharp fa-solid fa-minus"></i></span>1</td>                                    
-                                </tr>
-                                <tr>
-                                    <td>Added expense</td>
-                                    <td>Food & Drink</td>
-                                    <td><span><i class="fa-sharp fa-solid fa-minus"></i></span>250</td>                                    
-                                   
-                                </tr>
-                                <tr>
-                                    <td>Created user</td>
-                                    <td>Staff</td>
-                                    <td><span><i class="fa-sharp fa-solid fa-minus"></i></span>2</td>                                    
-                                </tr>
-                                <tr>
-                                    <td>Added income</td>
-                                    <td>Royalties</td>
-                                    <td><span><i class="fa-sharp fa-solid fa-plus"></i></span>4,500</td>                                    
-                                </tr>
-                                <tr>
-                                    <td>Deleted wallet</td>
-                                    <td>Tech Dept</td>
-                                    <td><span><i class="fa-sharp fa-solid fa-minus"></i></span>120</td>                                    
-                                </tr>
+                                {% endfor %}
+
                             </tbody>
                         </table>
-                        <a href="#">Show all</a>
                         
                     </div>
                 </div>
@@ -338,5 +319,14 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="{% static 'js/dashboard.js' %}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+        
+    $(document).ready(function() {
+        setTimeout(function() {
+            $(".messages").fadeOut("slow");
+        }, 3000);
+    });
+</script>
 </body>
 </html>
